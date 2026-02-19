@@ -1,0 +1,23 @@
+{
+  "name": "brown-noise-timer",
+  "version": "1.0.0",
+  "description": "ADHD-friendly brown noise timer app",
+  "main": "index.js",
+  "scripts": {
+    "dev": "vite",
+    "build": "vite build",
+    "preview": "vite preview",
+    "start": "python3 -m http.server 8000 --directory dist"
+  },
+  "keywords": ["adhd", "timer", "brown-noise", "focus"],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "react": "^18.2.0",
+    "react-dom": "^18.2.0"
+  },
+  "devDependencies": {
+    "@vitejs/plugin-react": "^4.0.0",
+    "vite": "^4.3.0"
+  }
+}

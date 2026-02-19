@@ -1,0 +1,639 @@
+/* ===== ルートスタイル ===== */
+.app {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+  transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+.app.dark {
+  background-color: #1e1e1e;
+  color: #ecedee;
+}
+
+.app.light {
+  background-color: #f5f5f5;
+  color: #1e1e1e;
+}
+
+.container {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 20px;
+  position: relative;
+  overflow-y: auto;
+}
+
+/* ===== ヘッダー ===== */
+.header {
+  position: absolute;
+  top: 16px;
+  left: 16px;
+  right: 16px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  z-index: 50;
+}
+
+.header h1 {
+  font-size: 20px;
+  font-weight: 700;
+  margin: 0;
+}
+
+.theme-toggle {
+  background: none;
+  border: none;
+  font-size: 24px;
+  cursor: pointer;
+  padding: 8px;
+  transition: transform 0.2s ease;
+}
+
+.theme-toggle:hover {
+  transform: scale(1.1);
+}
+
+.theme-toggle:active {
+  transform: scale(0.95);
+}
+
+/* ===== ステータスバー ===== */
+.status-bar {
+  position: absolute;
+  top: 60px;
+  left: 0;
+  right: 0;
+  height: 50px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 18px;
+  font-weight: 600;
+  color: white;
+  transition: background-color 0.3s ease;
+  gap: 12px;
+}
+
+.status-text {
+  font-size: 16px;
+  font-weight: 600;
+}
+
+.status-pulse {
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+  background-color: white;
+  animation: pulse 1.5s ease-in-out infinite;
+}
+
+@keyframes pulse {
+  0%, 100% {
+    opacity: 1;
+    transform: scale(1);
+  }
+  50% {
+    opacity: 0.5;
+    transform: scale(1.2);
+  }
+}
+
+/* ===== タイマー表示 ===== */
+.timer-display {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-top: 120px;
+}
+
+.timer-circle {
+  position: relative;
+  width: 280px;
+  height: 280px;
+  border-radius: 50%;
+  border: 4px solid #60a5fa;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: radial-gradient(circle, #2d2d2d 0%, #1e1e1e 100%);
+  box-shadow: 0 0 40px rgba(96, 165, 250, 0.2);
+  transition: all 0.3s ease;
+}
+
+.app.light .timer-circle {
+  background: radial-gradient(circle, #ffffff 0%, #f5f5f5 100%);
+  box-shadow: 0 0 40px rgba(96, 165, 250, 0.1);
+}
+
+.progress-ring {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  transform: rotate(-90deg);
+  top: 0;
+  left: 0;
+}
+
+.progress-bg {
+  color: #3d3d3d;
+}
+
+.app.light .progress-bg {
+  color: #e5e5e5;
+}
+
+.progress-fill {
+  transition: stroke-dashoffset 1s linear;
+}
+
+.timer-text {
+  font-size: 72px;
+  font-weight: 700;
+  font-family: 'Courier New', monospace;
+  letter-spacing: 4px;
+  color: #60a5fa;
+  text-align: center;
+  z-index: 10;
+}
+
+/* ===== ポモドーロカウント ===== */
+.pomodoro-count {
+  margin-top: 24px;
+  font-size: 14px;
+  font-weight: 500;
+  opacity: 0.8;
+}
+
+.count-value {
+  font-size: 18px;
+  font-weight: 700;
+  color: #60a5fa;
+}
+
+/* ===== コントロール ===== */
+.controls {
+  display: flex;
+  gap: 16px;
+  margin-top: 32px;
+  margin-bottom: 32px;
+}
+
+.btn {
+  padding: 14px 32px;
+  font-size: 16px;
+  font-weight: 600;
+  border-radius: 12px;
+  transition: all 0.2s ease;
+  cursor: pointer;
+  user-select: none;
+  border: none;
+}
+
+.btn-primary {
+  background-color: #60a5fa;
+  color: white;
+  min-width: 140px;
+}
+
+.btn-primary:hover {
+  background-color: #3b82f6;
+  transform: scale(1.02);
+}
+
+.btn-primary:active {
+  transform: scale(0.98);
+}
+
+.app.light .btn-primary {
+  background-color: #3b82f6;
+}
+
+.btn-secondary {
+  background-color: #3d3d3d;
+  color: #ecedee;
+  min-width: 140px;
+}
+
+.btn-secondary:hover {
+  background-color: #4d4d4d;
+}
+
+.btn-secondary:active {
+  transform: scale(0.98);
+}
+
+.app.light .btn-secondary {
+  background-color: #e5e5e5;
+  color: #1e1e1e;
+}
+
+.btn:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+/* ===== ノイズコントロール ===== */
+.noise-control {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 20px;
+  padding: 16px;
+  background-color: #2d2d2d;
+  border-radius: 12px;
+  min-width: 280px;
+}
+
+.app.light .noise-control {
+  background-color: #e5e5e5;
+}
+
+.noise-control label {
+  font-size: 14px;
+  font-weight: 600;
+  color: #9ba1a6;
+}
+
+.volume-slider {
+  width: 100%;
+  height: 6px;
+  border-radius: 3px;
+  background: linear-gradient(to right, #3d3d3d, #60a5fa);
+  outline: none;
+  -webkit-appearance: none;
+  appearance: none;
+  cursor: pointer;
+}
+
+.volume-slider::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  appearance: none;
+  width: 18px;
+  height: 18px;
+  border-radius: 50%;
+  background: #60a5fa;
+  cursor: pointer;
+  box-shadow: 0 2px 8px rgba(96, 165, 250, 0.4);
+}
+
+.volume-slider::-moz-range-thumb {
+  width: 18px;
+  height: 18px;
+  border-radius: 50%;
+  background: #60a5fa;
+  cursor: pointer;
+  border: none;
+  box-shadow: 0 2px 8px rgba(96, 165, 250, 0.4);
+}
+
+.volume-value {
+  font-size: 12px;
+  color: #9ba1a6;
+  font-weight: 500;
+}
+
+/* ===== 設定ボタン ===== */
+.settings-btn {
+  position: absolute;
+  bottom: 20px;
+  right: 20px;
+  width: 56px;
+  height: 56px;
+  border-radius: 50%;
+  background-color: #3d3d3d;
+  color: #ecedee;
+  font-size: 24px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  border: none;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+}
+
+.settings-btn:hover {
+  background-color: #4d4d4d;
+  transform: scale(1.05);
+}
+
+.settings-btn:active {
+  transform: scale(0.95);
+}
+
+.app.light .settings-btn {
+  background-color: #d5d5d5;
+  color: #1e1e1e;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+}
+
+/* ===== 設定パネル ===== */
+.settings-panel {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  background-color: #2d2d2d;
+  border-radius: 20px 20px 0 0;
+  padding: 24px;
+  max-height: 70vh;
+  overflow-y: auto;
+  box-shadow: 0 -4px 20px rgba(0, 0, 0, 0.4);
+  animation: slideUp 0.3s ease;
+  z-index: 100;
+}
+
+.app.light .settings-panel {
+  background-color: #ffffff;
+  box-shadow: 0 -4px 20px rgba(0, 0, 0, 0.1);
+}
+
+@keyframes slideUp {
+  from {
+    transform: translateY(100%);
+  }
+  to {
+    transform: translateY(0);
+  }
+}
+
+.settings-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 24px;
+  padding-bottom: 16px;
+  border-bottom: 1px solid #3d3d3d;
+}
+
+.app.light .settings-header {
+  border-bottom-color: #e5e5e5;
+}
+
+.settings-header h2 {
+  font-size: 20px;
+  font-weight: 700;
+  color: #ecedee;
+  margin: 0;
+}
+
+.app.light .settings-header h2 {
+  color: #1e1e1e;
+}
+
+.close-btn {
+  background: none;
+  border: none;
+  color: #9ba1a6;
+  font-size: 24px;
+  cursor: pointer;
+  padding: 0;
+  width: 32px;
+  height: 32px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: color 0.2s ease;
+}
+
+.close-btn:hover {
+  color: #ecedee;
+}
+
+.settings-content {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.setting-item {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.setting-item label {
+  font-size: 14px;
+  font-weight: 600;
+  color: #9ba1a6;
+}
+
+.preset-buttons {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 8px;
+}
+
+.preset-btn {
+  padding: 10px 12px;
+  background-color: #1e1e1e;
+  color: #ecedee;
+  border: 2px solid #3d3d3d;
+  border-radius: 8px;
+  font-size: 13px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.app.light .preset-btn {
+  background-color: #f5f5f5;
+  color: #1e1e1e;
+  border-color: #d5d5d5;
+}
+
+.preset-btn:hover {
+  border-color: #60a5fa;
+}
+
+.preset-btn.active {
+  background-color: #60a5fa;
+  color: white;
+  border-color: #60a5fa;
+}
+
+.preset-btn:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+.input-number,
+.input-select {
+  padding: 12px 16px;
+  background-color: #1e1e1e;
+  color: #ecedee;
+  border: 1px solid #3d3d3d;
+  border-radius: 8px;
+  font-size: 16px;
+  transition: border-color 0.2s ease;
+  font-family: inherit;
+}
+
+.app.light .input-number,
+.app.light .input-select {
+  background-color: #ffffff;
+  color: #1e1e1e;
+  border-color: #d5d5d5;
+}
+
+.input-number:focus,
+.input-select:focus {
+  border-color: #60a5fa;
+  outline: none;
+}
+
+.input-number:disabled,
+.input-select:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+/* ===== アラート ===== */
+.alert-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(0, 0, 0, 0.7);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 200;
+  animation: fadeIn 0.3s ease;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+.alert-content {
+  background-color: #2d2d2d;
+  padding: 40px;
+  border-radius: 16px;
+  text-align: center;
+  animation: scaleIn 0.3s ease;
+}
+
+.app.light .alert-content {
+  background-color: #ffffff;
+}
+
+@keyframes scaleIn {
+  from {
+    transform: scale(0.8);
+    opacity: 0;
+  }
+  to {
+    transform: scale(1);
+    opacity: 1;
+  }
+}
+
+.alert-emoji {
+  font-size: 64px;
+  margin-bottom: 16px;
+  animation: bounce 0.6s ease;
+}
+
+@keyframes bounce {
+  0%, 100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-20px);
+  }
+}
+
+.alert-text {
+  font-size: 24px;
+  font-weight: 700;
+  color: #60a5fa;
+}
+
+/* ===== レスポンシブ ===== */
+@media (max-width: 480px) {
+  .timer-circle {
+    width: 220px;
+    height: 220px;
+  }
+
+  .timer-text {
+    font-size: 56px;
+  }
+
+  .controls {
+    flex-direction: column;
+    width: 100%;
+  }
+
+  .btn {
+    width: 100%;
+  }
+
+  .noise-control {
+    width: 100%;
+    min-width: unset;
+  }
+
+  .settings-panel {
+    padding: 20px;
+    max-height: 80vh;
+  }
+
+  .header {
+    top: 12px;
+    left: 12px;
+    right: 12px;
+  }
+
+  .header h1 {
+    font-size: 18px;
+  }
+
+  .status-bar {
+    top: 56px;
+    height: 44px;
+  }
+
+  .timer-display {
+    margin-top: 110px;
+  }
+}
+
+@media (max-width: 320px) {
+  .timer-circle {
+    width: 180px;
+    height: 180px;
+  }
+
+  .timer-text {
+    font-size: 44px;
+    letter-spacing: 2px;
+  }
+
+  .controls {
+    gap: 12px;
+  }
+
+  .btn {
+    padding: 12px 24px;
+    font-size: 14px;
+  }
+}
