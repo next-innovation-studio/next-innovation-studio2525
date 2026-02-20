@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useRef } from 'react'
-import { startBrownNoise, stopBrownNoise, setBrownNoiseVolume, isBrownNoisePlaying, enableBackgroundPlayback } from './brownNoise'
+import { startNoise, stopBrownNoise, setBrownNoiseVolume, isBrownNoisePlaying, enableBackgroundPlayback, changeNoiseType } from './brownNoise'
 import './App.css'
 
 const PRESETS = [
@@ -78,18 +78,18 @@ export default function App() {
     return () => clearInterval(timerIntervalRef.current)
   }, [isRunning, isPaused, isBreak, focusMinutes, breakMinutes])
 
-  // ブラウンノイズの制御
+  // ノイズの制御
   useEffect(() => {
     if (isRunning && !isPaused && !isBreak) {
       if (!isBrownNoisePlaying()) {
-        startBrownNoise(noiseVolume)
+        startNoise(noiseType, noiseVolume)
       }
     } else {
       if (isBrownNoisePlaying()) {
         stopBrownNoise()
       }
     }
-  }, [isRunning, isPaused, isBreak, noiseVolume])
+  }, [isRunning, isPaused, isBreak, noiseVolume, noiseType])
 
   const handleTimerEnd = () => {
     playNotificationSound()
@@ -395,7 +395,13 @@ export default function App() {
                 <select
                   id="noise-type"
                   value={noiseType}
-                  onChange={(e) => setNoiseType(e.target.value)}
+                  onChange={(e) => {
+                    const newType = e.target.value
+                    setNoiseType(newType)
+                    if (isRunning && !isPaused && !isBreak) {
+                      changeNoiseType(newType)
+                    }
+                  }}
                   className="input-select"
                 >
                   <option value="brown">ブラウンノイズ</option>
